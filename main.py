@@ -10,6 +10,7 @@ def app():
     window=ttk.Window(themename='darkly')
     window.title("agnApenigma")
     window.geometry('600x550')
+    style=ttk.Style()
 
     window.rowconfigure((0,2),weight=10,uniform='a')
     window.rowconfigure((1,3),weight=3,uniform='a')
@@ -66,8 +67,6 @@ def app():
         except:
             print("nothing to clear")
 
-
-
     bottom_frm=ttk.Frame(window)
     bottom_frm.grid(row=3,column=0,columnspan=4,sticky='ew')
     bottom_frm.columnconfigure((0,1,2,3,4),weight=1,uniform='a')
@@ -79,7 +78,7 @@ def app():
 
     password_length_var=ttk.StringVar(value=8)
     password_length_spinbox=ttk.Spinbox(bottom_frm,from_=8, to=25, increment=1,state="readonly",textvariable=password_length_var)
-    password_length_spinbox.grid(row=0,column=2)
+    password_length_spinbox.grid(row=0,column=2,padx=15)
 
     help_image=Image.open('help.png').resize((20,20))
     help_button_photo=ImageTk.PhotoImage(help_image)
@@ -87,6 +86,18 @@ def app():
     about_btn=ttk.Button(bottom_frm,text='about',image=help_button_photo,command=lambda: open_about() )
     about_btn.grid(row=0,column=4)
     ToolTip(about_btn,text='know more about agnApenigma')
+
+    theme_var=ttk.StringVar(value='darkly')
+    theme_combobox=ttk.Combobox(bottom_frm,values=['darkly','solar','superhero','vapor','cosmo','flatly','journal','litera','lumen'],state="readonly",textvariable=theme_var)
+    theme_combobox.grid(row=0,column=3,padx=5)
+    ToolTip(theme_combobox,text='select the theme')
+
+    def combobox_changed(event):
+        valu=theme_var.get() 
+        #print(valu)
+        ttk.Style(valu)
+
+    theme_combobox.bind("<<ComboboxSelected>>",combobox_changed)
 
     def gen_password():
         key_var.set(generate_password(int(password_length_var.get()),True,True))
