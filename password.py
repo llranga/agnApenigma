@@ -1,9 +1,13 @@
 from random import randint
 from random import shuffle,choice
+import string
 
-
-alphebert=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-special_char=['!','?','#','@','&','*','$','%','=','+','-','(',')']
+alp=string.ascii_lowercase
+alphebert=list(alp)
+#alphebert=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+spe=string.punctuation
+special_char=list(spe)
+#special_char=['!','?','#','@','&','*','$','%','=','+','-','(',')']
 
 
 def get_content(total_length:int, numaric:bool,special_char:bool): 
